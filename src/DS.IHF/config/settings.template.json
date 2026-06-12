@@ -1,0 +1,9 @@
+{
+  "INTEGRATION_KEY_JWT": "{INTEGRATION_KEY_JWT}",
+  "IMPERSONATION_USER_GUID": "{IMPERSONATION_USER_GUID}",
+  "ACCOUNT_ID": "{ACCOUNT_ID}",
+  "CC_EMAIL": "{CC_EMAIL}",
+  "CC_NAME": "{CC_NAME}",
+  "DOCUSIGN_BASE_URI": "https://eu.docusign.net/restapi",
+  "DOCUSIGN_AUTH_SERVER": "https://account.docusign.com"
+}
