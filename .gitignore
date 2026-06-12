@@ -3,3 +3,10 @@ obj/
 *.user
 .vs/
 *.suo
+
+# Benutzerspezifische Konfiguration — nie einchecken
+config/settings.json
+config/private.key
+config/consent.done
+config/API_ACCOUNT_ID
+config/ds_access_tokenJWT.txt
