@@ -1,14 +1,15 @@
 using System.Text.RegularExpressions;
 using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
 using DS.IHF.Models;
 
 namespace DS.IHF.Helpers;
 
 public static class WordDocumentReader
 {
-    private static readonly Regex EmailPattern   = new(@"(?<=DSEMAIL:\s*)\S+.*",   RegexOptions.Compiled);
-    private static readonly Regex NamePattern    = new(@"(?<=DSASP:\s*)\S+.*",     RegexOptions.Compiled);
-    private static readonly Regex SubjectPattern = new(@"(?<=DSVA:\s*)\S+.*",      RegexOptions.Compiled);
+    private static readonly Regex EmailPattern   = new(@"(?<=DSEMAIL:\s*)\S.*", RegexOptions.Compiled);
+    private static readonly Regex NamePattern    = new(@"(?<=DSASP:\s*)\S.*",   RegexOptions.Compiled);
+    private static readonly Regex SubjectPattern = new(@"(?<=DSVA:\s*)\S.*",    RegexOptions.Compiled);
 
     public static DocumentMetadata ReadMetadata(string filePath)
     {
@@ -18,18 +19,31 @@ public static class WordDocumentReader
         var body = doc.MainDocumentPart?.Document?.Body
             ?? throw new InvalidOperationException($"Dokument hat keinen Body: {filePath}");
 
-        var text = body.InnerText;
+        // Paragraph für Paragraph auslesen — wie PS1 zeilenweise
+        foreach (var paragraph in body.Descendants<Paragraph>())
+        {
+            var line = paragraph.InnerText.Trim();
+            if (string.IsNullOrEmpty(line)) continue;
 
-        meta.SignerEmail = Match(EmailPattern,   text).Trim();
-        meta.SignerName  = Match(NamePattern,    text).Trim();
-        meta.Subject     = Match(SubjectPattern, text).Trim();
+            if (string.IsNullOrEmpty(meta.SignerEmail))
+                meta.SignerEmail = MatchLine(EmailPattern, line);
+            if (string.IsNullOrEmpty(meta.SignerName))
+                meta.SignerName = MatchLine(NamePattern, line);
+            if (string.IsNullOrEmpty(meta.Subject))
+                meta.Subject = MatchLine(SubjectPattern, line);
+
+            if (!string.IsNullOrEmpty(meta.SignerEmail) &&
+                !string.IsNullOrEmpty(meta.SignerName)  &&
+                !string.IsNullOrEmpty(meta.Subject))
+                break;
+        }
 
         return meta;
     }
 
-    private static string Match(Regex regex, string text)
+    private static string MatchLine(Regex regex, string line)
     {
-        var m = regex.Match(text);
-        return m.Success ? m.Value : "";
+        var m = regex.Match(line);
+        return m.Success ? m.Value.Trim() : "";
     }
 }
