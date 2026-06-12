@@ -41,9 +41,7 @@ public static class SettingsService
     {
         var template = new AppSettings
         {
-            INTEGRATION_KEY_JWT     = DocuSignUserService.IntegrationKeyJwt,
             IMPERSONATION_USER_GUID = "",
-            ACCOUNT_ID              = DocuSignUserService.AccountId,
             CC_EMAIL                = "{CC_EMAIL}",
             CC_NAME                 = "{CC_NAME}",
         };

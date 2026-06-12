@@ -83,7 +83,7 @@ public class DocuSignAuthService
         var userGuid = _overrideUserGuid ?? _settings.IMPERSONATION_USER_GUID;
         var payload = B64Url(JsonSerializer.Serialize(new
         {
-            iss   = _settings.INTEGRATION_KEY_JWT,
+            iss   = DocuSignUserService.IntegrationKeyJwt,
             sub   = userGuid,
             iat   = now,
             exp   = now + 3600,
@@ -114,7 +114,7 @@ public class DocuSignAuthService
             $"{_settings.DOCUSIGN_AUTH_SERVER}/oauth/auth" +
             $"?response_type=code" +
             $"&scope=signature%20impersonation" +
-            $"&client_id={_settings.INTEGRATION_KEY_JWT}" +
+            $"&client_id={DocuSignUserService.IntegrationKeyJwt}" +
             $"&state={state}" +
             $"&redirect_uri={Uri.EscapeDataString(RedirectUri)}";
 

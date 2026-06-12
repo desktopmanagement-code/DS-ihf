@@ -8,22 +8,6 @@ using DS.IHF.Services;
 var http     = new HttpClient();
 var settings = SettingsService.Load();
 
-// Pflichtfelder prüfen
-var missing = settings.GetMissingFields().ToList();
-if (missing.Any())
-{
-    Console.WriteLine("Die folgenden Felder fehlen in der settings.json:");
-    Console.WriteLine($"  {SettingsService.SettingsFilePath}");
-    Console.WriteLine();
-    foreach (var field in missing)
-        Console.WriteLine($"  - {field}");
-    Console.WriteLine();
-    Console.WriteLine("Bitte die Datei öffnen, die Werte eintragen und das Programm erneut starten.");
-    Console.WriteLine("Drücken Sie eine Taste zum Beenden...");
-    Console.ReadKey();
-    return;
-}
-
 // Private Key prüfen
 if (!File.Exists(SettingsService.PrivateKeyPath))
 {

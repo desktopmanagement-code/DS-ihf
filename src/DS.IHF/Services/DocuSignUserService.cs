@@ -31,7 +31,7 @@ public class DocuSignUserService
 
         var request = new HttpRequestMessage(
             HttpMethod.Get,
-            $"{_settings.DOCUSIGN_BASE_URI}/v2.1/accounts/{_settings.ACCOUNT_ID}/users?email={Uri.EscapeDataString(email)}");
+            $"{_settings.DOCUSIGN_BASE_URI}/v2.1/accounts/{AccountId}/users?email={Uri.EscapeDataString(email)}");
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
         var response = await _http.SendAsync(request);
