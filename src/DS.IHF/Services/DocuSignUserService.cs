@@ -6,7 +6,9 @@ namespace DS.IHF.Services;
 
 public class DocuSignUserService
 {
-    private const string AdminUserGuid = "92b39023-b49b-46d6-97d9-be3e41c314f0";
+    public const string AdminUserGuid      = "92b39023-b49b-46d6-97d9-be3e41c314f0";
+    public const string IntegrationKeyJwt  = "geheim";
+    public const string AccountId          = "66637";
 
     private readonly AppSettings     _settings;
     private readonly DocuSignAuthService _auth;

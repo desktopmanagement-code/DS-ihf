@@ -12,10 +12,8 @@ public class AppSettings
 
     public IEnumerable<string> GetMissingFields()
     {
-        if (string.IsNullOrWhiteSpace(INTEGRATION_KEY_JWT) || INTEGRATION_KEY_JWT.StartsWith("{"))
-            yield return nameof(INTEGRATION_KEY_JWT);
-        if (string.IsNullOrWhiteSpace(ACCOUNT_ID) || ACCOUNT_ID.StartsWith("{"))
-            yield return nameof(ACCOUNT_ID);
+        // INTEGRATION_KEY_JWT und ACCOUNT_ID sind im Code hinterlegt — kein Check nötig
+        yield break;
     }
 
     public bool NeedsUserGuidLookup =>

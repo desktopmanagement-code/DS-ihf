@@ -1,7 +1,7 @@
 {
-  "INTEGRATION_KEY_JWT": "{INTEGRATION_KEY_JWT}",
+  "INTEGRATION_KEY_JWT": "geheim",
   "IMPERSONATION_USER_GUID": "",
-  "ACCOUNT_ID": "{ACCOUNT_ID}",
+  "ACCOUNT_ID": "66637",
   "CC_EMAIL": "{CC_EMAIL}",
   "CC_NAME": "{CC_NAME}",
   "DOCUSIGN_BASE_URI": "https://eu.docusign.net/restapi",
