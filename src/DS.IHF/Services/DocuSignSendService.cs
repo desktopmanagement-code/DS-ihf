@@ -51,6 +51,7 @@ public class DocuSignSendService
             else
             {
                 Log($"FEHLER | {Path.GetFileName(meta.FilePath)} | HTTP {(int)response.StatusCode} | {responseText}");
+                throw new InvalidOperationException($"HTTP {(int)response.StatusCode}: {responseText}");
             }
         }
         catch (Exception ex)
@@ -64,7 +65,7 @@ public class DocuSignSendService
     {
         var envelope = new
         {
-            emailSubject = $"Bitte unterzeichnen Sie dieses Dokument ({meta.Subject})",
+            emailSubject = Truncate($"Bitte unterzeichnen Sie dieses Dokument ({meta.Subject})", 100),
             documents = new[]
             {
                 new { name = meta.Subject, fileExtension = "docx", documentId = "1" }
@@ -133,6 +134,9 @@ public class DocuSignSendService
 
         return ms.ToArray();
     }
+
+    private static string Truncate(string value, int maxLength) =>
+        value.Length <= maxLength ? value : value[..maxLength];
 
     private void Log(string message)
     {
