@@ -51,21 +51,30 @@ catch (Exception ex)
     return;
 }
 
-// Ordner wählen
-Application.EnableVisualStyles();
-using var dialog = new FolderBrowserDialog
+// Ordner-Dialog auf STA-Thread ausführen (Windows Forms Voraussetzung)
+string? selectedFolder = null;
+var staThread = new Thread(() =>
 {
-    Description         = "Ordner mit .docx Serienbriefen wählen",
-    ShowNewFolderButton = false
-};
+    Application.EnableVisualStyles();
+    using var dialog = new FolderBrowserDialog
+    {
+        Description         = "Ordner mit .docx Serienbriefen wählen",
+        ShowNewFolderButton = false
+    };
+    if (dialog.ShowDialog() == DialogResult.OK)
+        selectedFolder = dialog.SelectedPath;
+});
+staThread.SetApartmentState(ApartmentState.STA);
+staThread.Start();
+staThread.Join();
 
-if (dialog.ShowDialog() != DialogResult.OK)
+if (selectedFolder is null)
 {
     Console.WriteLine("Kein Ordner gewählt. Programm beendet.");
     return;
 }
 
-var files = Directory.GetFiles(dialog.SelectedPath, "*.docx");
+var files = Directory.GetFiles(selectedFolder, "*.docx");
 if (files.Length == 0)
 {
     Console.WriteLine("Keine .docx-Dateien im gewählten Ordner gefunden.");
