@@ -38,7 +38,17 @@ public class DocuSignAuthService
                 ["assertion"]  = jwt
             }));
 
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            var errorBody = await response.Content.ReadAsStringAsync();
+            throw new InvalidOperationException(
+                $"Token-Anfrage fehlgeschlagen: HTTP {(int)response.StatusCode}\n" +
+                $"DocuSign Antwort: {errorBody}\n\n" +
+                $"Mögliche Ursachen:\n" +
+                $"  1. Consent noch nicht erteilt → '{SettingsService.ConsentDonePath}' löschen und neu starten\n" +
+                $"  2. INTEGRATION_KEY_JWT oder IMPERSONATION_USER_GUID falsch in settings.json\n" +
+                $"  3. private.key Format ungültig (muss mit -----BEGIN RSA PRIVATE KEY----- beginnen)");
+        }
 
         var json  = await response.Content.ReadAsStringAsync();
         var token = JsonDocument.Parse(json).RootElement.GetProperty("access_token").GetString()
