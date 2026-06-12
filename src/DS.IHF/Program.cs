@@ -8,15 +8,6 @@ using DS.IHF.Services;
 var http     = new HttpClient();
 var settings = SettingsService.Load();
 
-// Private Key prüfen
-if (!File.Exists(SettingsService.PrivateKeyPath))
-{
-    Console.WriteLine($"Fehlende Datei: {SettingsService.PrivateKeyPath}");
-    Console.WriteLine("Bitte den RSA Private Key dort ablegen.");
-    Console.WriteLine("Drücken Sie eine Taste zum Beenden...");
-    Console.ReadKey();
-    return;
-}
 
 var auth        = new DocuSignAuthService(settings, http);
 var userService = new DocuSignUserService(settings, auth, http);

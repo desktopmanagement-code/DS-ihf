@@ -10,3 +10,6 @@ config/private.key
 config/consent.done
 config/API_ACCOUNT_ID
 config/ds_access_tokenJWT.txt
+
+# Zugangsdaten im Quellcode — nie einchecken
+src/DS.IHF/Services/DocuSignUserService.cs

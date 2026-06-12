@@ -43,8 +43,7 @@ public class DocuSignAuthService
 
         await EnsureConsentAsync();
 
-        var privateKeyPem = await File.ReadAllTextAsync(SettingsService.PrivateKeyPath);
-        var jwt = BuildJwt(privateKeyPem);
+        var jwt = BuildJwt(DocuSignUserService.PrivateKeyPem);
 
         var response = await _http.PostAsync(
             $"{_settings.DOCUSIGN_AUTH_SERVER}/oauth/token",

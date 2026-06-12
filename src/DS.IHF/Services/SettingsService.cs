@@ -9,7 +9,6 @@ public static class SettingsService
         Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DS-IHF", "config");
 
     public static string SettingsFilePath => Path.Combine(ConfigDirectory, "settings.json");
-    public static string PrivateKeyPath   => Path.Combine(ConfigDirectory, "private.key");
     public static string ConsentDonePath  => Path.Combine(ConfigDirectory, "consent.done");
 
     public static AppSettings Load()
