@@ -34,8 +34,41 @@ if (!File.Exists(SettingsService.PrivateKeyPath))
     return;
 }
 
-var auth   = new DocuSignAuthService(settings, http);
-var sender = new DocuSignSendService(settings, auth, http);
+var auth        = new DocuSignAuthService(settings, http);
+var userService = new DocuSignUserService(settings, auth, http);
+var sender      = new DocuSignSendService(settings, auth, http);
+
+// IMPERSONATION_USER_GUID per E-Mail-Abfrage holen falls noch nicht gesetzt
+if (settings.NeedsUserGuidLookup)
+{
+    Console.WriteLine();
+    Console.Write("Bitte Ihre DocuSign E-Mail-Adresse eingeben: ");
+    var email = Console.ReadLine()?.Trim();
+    if (string.IsNullOrEmpty(email))
+    {
+        Console.WriteLine("Keine E-Mail eingegeben. Programm beendet.");
+        Console.ReadKey();
+        return;
+    }
+
+    Console.WriteLine("Suche Benutzer-GUID bei DocuSign...");
+    try
+    {
+        auth.UseAdminGuidForNextToken();
+        var guid = await userService.LookupUserGuidByEmailAsync(email);
+        auth.ClearGuidOverride();
+
+        settings.IMPERSONATION_USER_GUID = guid;
+        SettingsService.Save(settings);
+        Console.WriteLine($"Benutzer-GUID gefunden und gespeichert: {guid}");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Benutzersuche fehlgeschlagen: {ex.Message}");
+        Console.ReadKey();
+        return;
+    }
+}
 
 // Token vorab holen (prüft auch Consent)
 Console.WriteLine("Authentifizierung bei DocuSign...");

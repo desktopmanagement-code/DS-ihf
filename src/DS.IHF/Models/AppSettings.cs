@@ -14,9 +14,10 @@ public class AppSettings
     {
         if (string.IsNullOrWhiteSpace(INTEGRATION_KEY_JWT) || INTEGRATION_KEY_JWT.StartsWith("{"))
             yield return nameof(INTEGRATION_KEY_JWT);
-        if (string.IsNullOrWhiteSpace(IMPERSONATION_USER_GUID) || IMPERSONATION_USER_GUID.StartsWith("{"))
-            yield return nameof(IMPERSONATION_USER_GUID);
         if (string.IsNullOrWhiteSpace(ACCOUNT_ID) || ACCOUNT_ID.StartsWith("{"))
             yield return nameof(ACCOUNT_ID);
     }
+
+    public bool NeedsUserGuidLookup =>
+        string.IsNullOrWhiteSpace(IMPERSONATION_USER_GUID) || IMPERSONATION_USER_GUID.StartsWith("{");
 }

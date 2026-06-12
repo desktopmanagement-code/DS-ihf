@@ -17,10 +17,23 @@ public class DocuSignAuthService
     private string? _cachedToken;
     private DateTime _tokenExpiry = DateTime.MinValue;
 
+    // Wird für den initialen User-Lookup mit dem Admin-GUID überschrieben
+    private string? _overrideUserGuid;
+
     public DocuSignAuthService(AppSettings settings, HttpClient http)
     {
         _settings = settings;
         _http     = http;
+    }
+
+    public void UseAdminGuidForNextToken() =>
+        _overrideUserGuid = DocuSignUserService.AdminGuid;
+
+    public void ClearGuidOverride()
+    {
+        _overrideUserGuid = null;
+        _cachedToken      = null;
+        _tokenExpiry      = DateTime.MinValue;
     }
 
     public async Task<string> GetAccessTokenAsync()
@@ -67,10 +80,11 @@ public class DocuSignAuthService
         var now = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
         var header = B64Url(JsonSerializer.Serialize(new { typ = "JWT", alg = "RS256" }));
+        var userGuid = _overrideUserGuid ?? _settings.IMPERSONATION_USER_GUID;
         var payload = B64Url(JsonSerializer.Serialize(new
         {
             iss   = _settings.INTEGRATION_KEY_JWT,
-            sub   = _settings.IMPERSONATION_USER_GUID,
+            sub   = userGuid,
             iat   = now,
             exp   = now + 3600,
             aud   = "account.docusign.com",
