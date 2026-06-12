@@ -88,11 +88,8 @@ In C# verwenden wir **`DocumentFormat.OpenXml`** (NuGet: `DocumentFormat.OpenXml
 }
 ```
 
-Felder, die der Admin vorbelegt (über MSI/Intune):
-- `INTEGRATION_KEY_JWT`, `ACCOUNT_ID`, `DOCUSIGN_BASE_URI`, `DOCUSIGN_AUTH_SERVER`
-
-Felder, die der User selbst einträgt:
-- `CC_EMAIL`, `CC_NAME`, `IMPERSONATION_USER_GUID`
+Alle Felder werden vom User selbst eingetragen:
+- `INTEGRATION_KEY_JWT`, `IMPERSONATION_USER_GUID`, `ACCOUNT_ID`, `CC_EMAIL`, `CC_NAME`, `DOCUSIGN_BASE_URI`, `DOCUSIGN_AUTH_SERVER`
 
 ---
 
@@ -143,7 +140,7 @@ DS-IHF-Setup.msi
 - `INSTALLDIR`: `C:\Program Files\DS-IHF\`
 - Shortcut auf Desktop + Startmenü → `DS.IHF.exe`
 - Per-User-Konfiguration wird nur beim **Erstinstall** nach `%APPDATA%` kopiert  
-  (nicht bei Updates überschrieben — `NeverOverwrite`-Flag)
+  (nicht bei Updates überschrieben — `NeverOverwrite`-Flag) — mit leeren Platzhalterwerten
 - Kein Admin-Recht zur Laufzeit nötig (App läuft als normaler User)
 
 ---
@@ -168,12 +165,9 @@ intunewin-Paket:
 | Abhängigkeit | .NET 8 Desktop Runtime (als eigene Win32-App oder via winget) |
 
 ### Pro-User-Konfiguration via Intune
-Optionen:
-1. **Intune-PowerShell-Skript** (einmalig nach Erstinstall):  
-   Kopiert `settings.json` mit vorbelgten Werten nach `%APPDATA%\DS-IHF\config\`
-2. **Administrative Templates (ADMX)** wenn künftig Registry-basierte Settings gewünscht
-3. **Einfachste Variante**: Admin-Felder direkt im MSI als Properties mitgeben  
-   `msiexec /i DS-IHF-Setup.msi INTEGRATION_KEY="xxx" ACCOUNT_ID="yyy" /qn`
+- MSI kopiert eine leere `settings.json`-Vorlage nach `%APPDATA%\DS-IHF\config\`
+- User trägt alle Werte selbst ein (IntegrationKey, AccountId, etc.)
+- Beim App-Start: fehlende Pflichtfelder werden erkannt und der User wird zur Konfiguration aufgefordert
 
 ---
 
