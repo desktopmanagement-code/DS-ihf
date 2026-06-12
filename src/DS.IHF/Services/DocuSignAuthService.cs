@@ -1,3 +1,4 @@
+using System.Net;
 using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
@@ -8,6 +9,8 @@ namespace DS.IHF.Services;
 
 public class DocuSignAuthService
 {
+    private const string RedirectUri = "http://localhost:8080/authorization-code/callback";
+
     private readonly AppSettings _settings;
     private readonly HttpClient  _http;
 
@@ -92,24 +95,52 @@ public class DocuSignAuthService
         if (File.Exists(SettingsService.ConsentDonePath))
             return;
 
+        var state      = Convert.ToString(Random.Shared.NextInt64(0, 1_000_000_000), 16);
         var consentUrl =
             $"{_settings.DOCUSIGN_AUTH_SERVER}/oauth/auth" +
             $"?response_type=code" +
             $"&scope=signature%20impersonation" +
             $"&client_id={_settings.INTEGRATION_KEY_JWT}" +
-            $"&redirect_uri=https://www.docusign.com";
+            $"&state={state}" +
+            $"&redirect_uri={Uri.EscapeDataString(RedirectUri)}";
 
         Console.WriteLine();
-        Console.WriteLine("Einmaliger Consent erforderlich.");
-        Console.WriteLine("Der Browser wird geöffnet. Bitte anmelden und Zugriff erlauben.");
-        Console.WriteLine(consentUrl);
+        Console.WriteLine("Einmaliger Consent erforderlich — Browser wird geöffnet...");
+
+        var listener = new HttpListener();
+        listener.Prefixes.Add(RedirectUri + "/");
+
+        try
+        {
+            listener.Start();
+        }
+        catch (HttpListenerException)
+        {
+            throw new InvalidOperationException(
+                "Port 8080 ist bereits belegt. Bitte das andere Programm beenden und neu starten.");
+        }
 
         OpenBrowser(consentUrl);
 
-        Console.WriteLine("Drücken Sie eine Taste, sobald der Consent erteilt wurde...");
-        Console.ReadKey(intercept: true);
+        // Auf Callback warten
+        var context = await listener.GetContextAsync();
+
+        // Erfolgsseite an Browser senden
+        var html = Encoding.UTF8.GetBytes("""
+            <html><head><meta charset="utf-8"><title>DS-IHF</title></head>
+            <body>Consent erteilt. Dieses Fenster schließt sich automatisch.
+            <script>setTimeout(()=>window.close(),3000);</script>
+            </body></html>
+            """);
+        context.Response.ContentLength64 = html.Length;
+        context.Response.ContentType = "text/html; charset=utf-8";
+        await context.Response.OutputStream.WriteAsync(html);
+        context.Response.OutputStream.Close();
+
+        listener.Stop();
 
         await File.WriteAllTextAsync(SettingsService.ConsentDonePath, DateTime.UtcNow.ToString("o"));
+        Console.WriteLine("Consent erfolgreich erteilt.");
     }
 
     private static string B64Url(string text) =>
@@ -121,6 +152,6 @@ public class DocuSignAuthService
     private static void OpenBrowser(string url)
     {
         try { System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(url) { UseShellExecute = true }); }
-        catch { /* Browser nicht verfügbar — URL wurde bereits in Konsole ausgegeben */ }
+        catch { Console.WriteLine($"Browser konnte nicht geöffnet werden. Bitte manuell aufrufen:\n{url}"); }
     }
 }
