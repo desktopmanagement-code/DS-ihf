@@ -4,6 +4,9 @@ obj/
 .vs/
 *.suo
 
+# Build-Ergebnisse des Installers
+installer/output/
+
 # Benutzerspezifische Konfiguration — nie einchecken
 config/settings.json
 config/private.key
