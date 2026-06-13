@@ -10,8 +10,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon />
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <Authors>Hausärztinnen- und Hausärzteverband</Authors>
-    <Company>Hausärztinnen- und Hausärzteverband</Company>
+    <Authors>Aequitas-Software für Hausärztinnen- und Hausärzteverband (Tobias Paul)</Authors>
+    <Company>Aequitas-Software für Hausärztinnen- und Hausärzteverband (Tobias Paul)</Company>
     <Product>DS-IHF Serienbrief-Upload</Product>
     <Description>DocuSign Serienbriefe automatisch hochladen</Description>
     <Copyright>© 2026 Hausärztinnen- und Hausärzteverband</Copyright>
