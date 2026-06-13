@@ -17,6 +17,8 @@ OutFile "output\DS-IHF-Setup.exe"
 InstallDir "${INSTALL_DIR}"
 RequestExecutionLevel admin
 SetCompressor /SOLID lzma
+Icon "..\src\DS.IHF\DSIHF.ico"
+UninstallIcon "..\src\DS.IHF\DSIHF.ico"
 
 ; Moderne Oberfläche
 !include "MUI2.nsh"
@@ -37,6 +39,7 @@ Section "Hauptprogramm" SecMain
     SetOutPath "$INSTDIR"
 
     File "${BUILD_DIR}\DS.IHF.exe"
+    File "..\src\DS.IHF\DSIHF.ico"
     File "${BUILD_DIR}\DS.IHF.dll"
     File "${BUILD_DIR}\DS.IHF.deps.json"
     File "${BUILD_DIR}\DS.IHF.runtimeconfig.json"
@@ -47,7 +50,7 @@ Section "Hauptprogramm" SecMain
     ; Startmenü-Einträge
     CreateDirectory "$SMPROGRAMS\DS-IHF"
     CreateShortcut "$SMPROGRAMS\DS-IHF\DS-IHF Serienbrief-Upload.lnk" \
-        "$INSTDIR\${APP_EXE}" "" "$INSTDIR\${APP_EXE}" 0
+        "$INSTDIR\${APP_EXE}" "" "$INSTDIR\DSIHF.ico" 0
     CreateShortcut "$SMPROGRAMS\DS-IHF\Deinstallieren.lnk" \
         "$INSTDIR\Uninstall.exe"
 
@@ -70,6 +73,7 @@ Section "Uninstall"
 
     ; Dateien entfernen
     Delete "$INSTDIR\DS.IHF.exe"
+    Delete "$INSTDIR\DSIHF.ico"
     Delete "$INSTDIR\DS.IHF.dll"
     Delete "$INSTDIR\DS.IHF.deps.json"
     Delete "$INSTDIR\DS.IHF.runtimeconfig.json"
