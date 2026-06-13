@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.0.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DS.IHF", "src\DS.IHF\DS.IHF.csproj", "{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}"
 EndProject
-Project("{BF20B2C5-30D7-4EB9-A9A6-4B9B4E5C2E1D}") = "DS-IHF-Installer", "installer\DS-IHF-Installer.wixproj", "{C2D3E4F5-A6B7-8901-CDEF-123456789012}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DS-IHF-Installer", "installer\DS-IHF-Installer.csproj", "{C2D3E4F5-A6B7-8901-CDEF-123456789012}"
 EndProject
 Global
     GlobalSection(SolutionConfigurationPlatforms) = preSolution

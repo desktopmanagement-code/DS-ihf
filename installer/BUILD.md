@@ -1,37 +1,38 @@
-# MSI erstellen
+# MSI erstellen mit WixSharp
 
 ## Voraussetzungen (einmalig)
 
-```powershell
-# WiX 4 installieren
-dotnet tool install --global wix
+1. **WixSharp Project Templates** in Visual Studio installieren
+   (Extensions → Manage Extensions → suche "WixSharp")
 
-# WiX UI Extension hinzufügen
-wix extension add WixToolset.UI.wixext/4.0.5
-```
-
-Außerdem: **HeatWave for VS2022** Extension in Visual Studio installieren.
+2. **Wix Toolset** wird automatisch als NuGet-Paket geladen — kein separates Tool nötig
 
 ## MSI bauen
 
-```powershell
-# 1. App im Release-Modus bauen
-dotnet build ..\src\DS.IHF\DS.IHF.csproj -c Release
+**Schritt 1:** App im Release-Modus bauen
+```
+Visual Studio → Build → Batch Build → DS.IHF Release → Build
+```
 
-# 2. MSI erstellen
-dotnet build DS-IHF-Installer.wixproj -c Release
+**Schritt 2:** Installer ausführen
+```
+Visual Studio → DS-IHF-Installer → Start (ohne Debugging)
+```
+oder per Kommandozeile:
+```powershell
+dotnet run --project installer\DS-IHF-Installer.csproj
 ```
 
 Die fertige MSI liegt danach unter:
 ```
-installer\bin\Release\DS-IHF-Setup.msi
+installer\output\DS-IHF-Setup.msi
 ```
 
 ## Intune (Win32-App)
 
 ```powershell
-# IntuneWin-Paket erstellen (IntuneWinAppUtil.exe benötigt)
-IntuneWinAppUtil.exe -c . -s DS-IHF-Setup.msi -o .
+# IntuneWin-Paket erstellen
+IntuneWinAppUtil.exe -c installer\output -s DS-IHF-Setup.msi -o installer\output
 ```
 
 Intune-Konfiguration:
