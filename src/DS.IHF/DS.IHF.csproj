@@ -9,6 +9,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>DSIHF.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <Authors>Aequitas-Software für Hausärztinnen- und Hausärzteverband (Tobias Paul)</Authors>
     <Company>Aequitas-Software für Hausärztinnen- und Hausärzteverband (Tobias Paul)</Company>

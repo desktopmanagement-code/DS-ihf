@@ -13,7 +13,7 @@ var settings = SettingsService.Load();
 
 Application.EnableVisualStyles();
 Application.SetCompatibleTextRenderingDefault(false);
-Application.SetHighDpiMode(HighDpiMode.SystemAware);
+Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
 
 var thread = new Thread(() =>
 {
