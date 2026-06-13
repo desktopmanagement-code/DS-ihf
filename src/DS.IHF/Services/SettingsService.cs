@@ -26,7 +26,11 @@ public static class SettingsService
     public static void Save(AppSettings settings)
     {
         EnsureConfigDirectory();
-        var json = JsonSerializer.Serialize(settings, new JsonSerializerOptions { WriteIndented = true });
+        var json = JsonSerializer.Serialize(settings, new JsonSerializerOptions
+        {
+            WriteIndented = true,
+            // Unbekannte Felder in der JSON werden beim Laden ignoriert
+        });
         File.WriteAllText(SettingsFilePath, json);
     }
 
