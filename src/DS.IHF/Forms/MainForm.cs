@@ -271,24 +271,63 @@ public class MainForm : Form
 
     private string? PromptEmail()
     {
-        var result = "";
         var form = new Form
         {
-            Text          = "DocuSign E-Mail",
-            Size          = new Size(400, 150),
-            StartPosition = FormStartPosition.CenterParent,
+            Text            = "DocuSign E-Mail",
+            AutoSize        = true,
+            AutoSizeMode    = AutoSizeMode.GrowAndShrink,
+            StartPosition   = FormStartPosition.CenterParent,
             FormBorderStyle = FormBorderStyle.FixedDialog,
-            MaximizeBox   = false,
-            MinimizeBox   = false,
+            MaximizeBox     = false,
+            MinimizeBox     = false,
+            Padding         = new Padding(12),
         };
-        var lbl = new Label  { Text = "Ihre DocuSign E-Mail-Adresse:", Left = 12, Top = 14, Width = 360 };
-        var txt = new TextBox { Left = 12, Top = 34, Width = 360 };
-        var btn = new Button  { Text = "OK", Left = 297, Top = 66, Width = 75, DialogResult = DialogResult.OK };
-        form.Controls.AddRange(new Control[] { lbl, txt, btn });
+
+        var layout = new TableLayoutPanel
+        {
+            Dock        = DockStyle.Fill,
+            AutoSize    = true,
+            ColumnCount = 1,
+            RowCount    = 3,
+            Padding     = new Padding(0),
+        };
+        layout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 376));
+        layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+
+        var lbl = new Label
+        {
+            Text     = "Ihre DocuSign E-Mail-Adresse:",
+            Dock     = DockStyle.Fill,
+            AutoSize = true,
+            Margin   = new Padding(0, 0, 0, 4),
+        };
+        var txt = new TextBox
+        {
+            Dock   = DockStyle.Fill,
+            Margin = new Padding(0, 0, 0, 8),
+        };
+        var btn = new Button
+        {
+            Text         = "OK",
+            Dock         = DockStyle.Right,
+            Width        = 80,
+            DialogResult = DialogResult.OK,
+        };
+
+        layout.Controls.Add(lbl, 0, 0);
+        layout.Controls.Add(txt, 0, 1);
+        layout.Controls.Add(btn, 0, 2);
+        form.Controls.Add(layout);
         form.AcceptButton = btn;
+
         if (form.ShowDialog(this) == DialogResult.OK)
-            result = txt.Text.Trim();
-        return string.IsNullOrEmpty(result) ? null : result;
+        {
+            var result = txt.Text.Trim();
+            return string.IsNullOrEmpty(result) ? null : result;
+        }
+        return null;
     }
 
     private void SetStatus(string text, Color color)
