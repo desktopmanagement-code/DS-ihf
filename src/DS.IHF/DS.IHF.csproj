@@ -8,7 +8,7 @@
     <AssemblyName>DS.IHF</AssemblyName>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <ApplicationIcon />
+    <ApplicationIcon>DSIHF.ico</ApplicationIcon>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <Authors>Aequitas-Software für Hausärztinnen- und Hausärzteverband (Tobias Paul)</Authors>
     <Company>Aequitas-Software für Hausärztinnen- und Hausärzteverband (Tobias Paul)</Company>

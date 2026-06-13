@@ -6,6 +6,7 @@ obj/
 
 # Build-Ergebnisse des Installers
 installer/output/
+installer/*.bak
 
 # Benutzerspezifische Konfiguration — nie einchecken
 config/settings.json
