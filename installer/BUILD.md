@@ -6,9 +6,10 @@ NSIS herunterladen und installieren: https://nsis.sourceforge.io
 
 ## Setup-EXE bauen
 
-**Schritt 1:** App im Release-Modus bauen
-- Visual Studio → Erstellen → Batchbuild
-- Häkchen bei DS.IHF | Release | Any CPU → Erstellen
+**Schritt 1:** App veröffentlichen (Self-Contained)
+- Rechtsklick auf DS.IHF → Veröffentlichen
+- Ziel: Ordner → Release → Veröffentlichen
+- Ausgabe: src\DS.IHF\bin\Release\net8.0-windows\win-x64\publish\DS.IHF.exe
 
 **Schritt 2:** NSIS-Skript kompilieren
 - Rechtsklick auf `installer\DS-IHF-Setup.nsi`

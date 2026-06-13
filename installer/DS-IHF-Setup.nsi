@@ -7,7 +7,7 @@ Unicode True
 !define APP_VERSION "1.0.0"
 !define APP_PUBLISHER "Aequitas-Software für Hausärztinnen- und Hausärzteverband (Tobias Paul)"
 !define APP_EXE "DS.IHF.exe"
-!define BUILD_DIR "..\src\DS.IHF\bin\Release\net8.0-windows"
+!define BUILD_DIR "..\src\DS.IHF\bin\Release\net8.0-windows\win-x64\publish"
 !define INSTALL_DIR "$PROGRAMFILES64\DS-IHF"
 !define UNINSTALL_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\DS-IHF"
 !define APP_GUID "{B7C3D4E5-F6A7-8901-BCDE-F12345678901}"
@@ -40,12 +40,6 @@ Section "Hauptprogramm" SecMain
 
     File "${BUILD_DIR}\DS.IHF.exe"
     File "..\src\DS.IHF\DSIHF.ico"
-    File "${BUILD_DIR}\DS.IHF.dll"
-    File "${BUILD_DIR}\DS.IHF.deps.json"
-    File "${BUILD_DIR}\DS.IHF.runtimeconfig.json"
-    File "${BUILD_DIR}\DocumentFormat.OpenXml.dll"
-    File "${BUILD_DIR}\DocumentFormat.OpenXml.Framework.dll"
-    File "${BUILD_DIR}\System.IO.Packaging.dll"
 
     ; Startmenü-Einträge
     CreateDirectory "$SMPROGRAMS\DS-IHF"
@@ -74,12 +68,6 @@ Section "Uninstall"
     ; Dateien entfernen
     Delete "$INSTDIR\DS.IHF.exe"
     Delete "$INSTDIR\DSIHF.ico"
-    Delete "$INSTDIR\DS.IHF.dll"
-    Delete "$INSTDIR\DS.IHF.deps.json"
-    Delete "$INSTDIR\DS.IHF.runtimeconfig.json"
-    Delete "$INSTDIR\DocumentFormat.OpenXml.dll"
-    Delete "$INSTDIR\DocumentFormat.OpenXml.Framework.dll"
-    Delete "$INSTDIR\System.IO.Packaging.dll"
     Delete "$INSTDIR\Uninstall.exe"
     RMDir  "$INSTDIR"
 
