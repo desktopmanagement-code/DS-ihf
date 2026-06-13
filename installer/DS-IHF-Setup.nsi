@@ -8,14 +8,14 @@ Unicode True
 !define APP_PUBLISHER "Hausärztinnen- und Hausärzteverband"
 !define APP_EXE "DS.IHF.exe"
 !define BUILD_DIR "..\src\DS.IHF\bin\Release\net8.0-windows"
-!define INSTALL_DIR "$LOCALAPPDATA\DS-IHF"
+!define INSTALL_DIR "$PROGRAMFILES64\DS-IHF"
 !define UNINSTALL_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\DS-IHF"
 !define APP_GUID "{B7C3D4E5-F6A7-8901-BCDE-F12345678901}"
 
 Name "${APP_NAME}"
 OutFile "output\DS-IHF-Setup.exe"
 InstallDir "${INSTALL_DIR}"
-RequestExecutionLevel user
+RequestExecutionLevel admin
 SetCompressor /SOLID lzma
 
 ; Moderne Oberfläche
@@ -48,8 +48,6 @@ Section "Hauptprogramm" SecMain
     CreateDirectory "$SMPROGRAMS\DS-IHF"
     CreateShortcut "$SMPROGRAMS\DS-IHF\DS-IHF Serienbrief-Upload.lnk" \
         "$INSTDIR\${APP_EXE}" "" "$INSTDIR\${APP_EXE}" 0
-    CreateShortcut "$SMPROGRAMS\DS-IHF\DS-IHF Serienbrief-Upload (Demo).lnk" \
-        "$INSTDIR\${APP_EXE}" "/Demo" "$INSTDIR\${APP_EXE}" 0
     CreateShortcut "$SMPROGRAMS\DS-IHF\Deinstallieren.lnk" \
         "$INSTDIR\Uninstall.exe"
 
@@ -57,13 +55,13 @@ Section "Hauptprogramm" SecMain
     WriteUninstaller "$INSTDIR\Uninstall.exe"
 
     ; In Windows Programme & Features eintragen
-    WriteRegStr HKCU "${UNINSTALL_KEY}" "DisplayName"     "${APP_NAME}"
-    WriteRegStr HKCU "${UNINSTALL_KEY}" "DisplayVersion"  "${APP_VERSION}"
-    WriteRegStr HKCU "${UNINSTALL_KEY}" "Publisher"       "${APP_PUBLISHER}"
-    WriteRegStr HKCU "${UNINSTALL_KEY}" "InstallLocation" "$INSTDIR"
-    WriteRegStr HKCU "${UNINSTALL_KEY}" "UninstallString" "$INSTDIR\Uninstall.exe"
-    WriteRegStr HKCU "${UNINSTALL_KEY}" "NoModify"        "1"
-    WriteRegStr HKCU "${UNINSTALL_KEY}" "NoRepair"        "1"
+    WriteRegStr HKLM "${UNINSTALL_KEY}" "DisplayName"     "${APP_NAME}"
+    WriteRegStr HKLM "${UNINSTALL_KEY}" "DisplayVersion"  "${APP_VERSION}"
+    WriteRegStr HKLM "${UNINSTALL_KEY}" "Publisher"       "${APP_PUBLISHER}"
+    WriteRegStr HKLM "${UNINSTALL_KEY}" "InstallLocation" "$INSTDIR"
+    WriteRegStr HKLM "${UNINSTALL_KEY}" "UninstallString" "$INSTDIR\Uninstall.exe"
+    WriteRegStr HKLM "${UNINSTALL_KEY}" "NoModify"        "1"
+    WriteRegStr HKLM "${UNINSTALL_KEY}" "NoRepair"        "1"
 
 SectionEnd
 
@@ -83,11 +81,10 @@ Section "Uninstall"
 
     ; Startmenü entfernen
     Delete "$SMPROGRAMS\DS-IHF\DS-IHF Serienbrief-Upload.lnk"
-    Delete "$SMPROGRAMS\DS-IHF\DS-IHF Serienbrief-Upload (Demo).lnk"
     Delete "$SMPROGRAMS\DS-IHF\Deinstallieren.lnk"
     RMDir  "$SMPROGRAMS\DS-IHF"
 
     ; Registry-Eintrag entfernen
-    DeleteRegKey HKCU "${UNINSTALL_KEY}"
+    DeleteRegKey HKLM "${UNINSTALL_KEY}"
 
 SectionEnd
