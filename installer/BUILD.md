@@ -1,43 +1,36 @@
-# MSI erstellen mit WixSharp
+# Setup-EXE erstellen mit Inno Setup
 
 ## Voraussetzungen (einmalig)
 
-1. **WixSharp Project Templates** in Visual Studio installieren
-   (Extensions → Manage Extensions → suche "WixSharp")
+Inno Setup herunterladen und installieren:
+https://jrsoftware.org/isdl.php
 
-2. **Wix Toolset** wird automatisch als NuGet-Paket geladen — kein separates Tool nötig
-
-## MSI bauen
+## Setup-EXE bauen
 
 **Schritt 1:** App im Release-Modus bauen
-```
-Visual Studio → Build → Batch Build → DS.IHF Release → Build
-```
+- Visual Studio → Erstellen → Batchbuild
+- Häkchen bei DS.IHF | Release | Any CPU
+- Klick auf Erstellen
 
-**Schritt 2:** Installer ausführen
-```
-Visual Studio → DS-IHF-Installer → Start (ohne Debugging)
-```
-oder per Kommandozeile:
-```powershell
-dotnet run --project installer\DS-IHF-Installer.csproj
-```
+**Schritt 2:** Inno Setup öffnen
+- `installer\DS-IHF-Setup.iss` mit Inno Setup öffnen
+- Klick auf **Compile** (oder F9)
 
-Die fertige MSI liegt danach unter:
+Die fertige Setup-EXE liegt danach unter:
 ```
-installer\output\DS-IHF-Setup.msi
+installer\output\DS-IHF-Setup.exe
 ```
 
 ## Intune (Win32-App)
 
 ```powershell
 # IntuneWin-Paket erstellen
-IntuneWinAppUtil.exe -c installer\output -s DS-IHF-Setup.msi -o installer\output
+IntuneWinAppUtil.exe -c installer\output -s DS-IHF-Setup.exe -o installer\output
 ```
 
 Intune-Konfiguration:
-- Installationsbefehl:   `msiexec /i DS-IHF-Setup.msi /qn`
-- Deinstallationsbefehl: `msiexec /x {B7C3D4E5-F6A7-8901-BCDE-F12345678901} /qn`
+- Installationsbefehl:   `DS-IHF-Setup.exe /VERYSILENT /SUPPRESSMSGBOXES`
+- Deinstallationsbefehl: `%localappdata%\DS-IHF\unins000.exe /VERYSILENT`
 - Erkennungsregel:       Datei `%LOCALAPPDATA%\DS-IHF\DS.IHF.exe`
 - Zuweisung:             Per Benutzer (nicht Gerät)
 - Abhängigkeit:          .NET 8 Desktop Runtime
