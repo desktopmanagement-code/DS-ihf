@@ -140,10 +140,14 @@ public class DocuSignAuthService
 
         // Erfolgsseite an Browser senden
         var html = Encoding.UTF8.GetBytes("""
-            <html><head><meta charset="utf-8"><title>DS-IHF</title></head>
-            <body>Consent erteilt. Dieses Fenster schließt sich automatisch.
-            <script>setTimeout(()=>window.close(),3000);</script>
-            </body></html>
+            <html><head><meta charset="utf-8"><title>DS-IHF</title>
+            <style>body{font-family:sans-serif;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;background:#f0f4f8;}
+            .box{text-align:center;padding:40px;border-radius:8px;background:white;box-shadow:0 2px 12px rgba(0,0,0,.1);}
+            h2{color:#0a7c42;} p{color:#555;}</style></head>
+            <body><div class="box">
+            <h2>✓ Anmeldung erfolgreich</h2>
+            <p>Sie können diesen Tab jetzt schließen und zur Anwendung zurückkehren.</p>
+            </div></body></html>
             """);
         context.Response.ContentLength64 = html.Length;
         context.Response.ContentType = "text/html; charset=utf-8";
