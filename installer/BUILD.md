@@ -1,4 +1,32 @@
-# Setup-EXE erstellen mit Inno Setup
+# Setup-EXE erstellen mit NSIS
+
+## Voraussetzungen (einmalig)
+
+NSIS herunterladen und installieren: https://nsis.sourceforge.io
+
+## Setup-EXE bauen
+
+**Schritt 1:** App im Release-Modus bauen
+- Visual Studio → Erstellen → Batchbuild
+- Häkchen bei DS.IHF | Release | Any CPU → Erstellen
+
+**Schritt 2:** NSIS-Skript kompilieren
+- Rechtsklick auf `installer\DS-IHF-Setup.nsi`
+- **Compile NSIS Script** klicken
+
+Die fertige Setup-EXE liegt danach unter:
+```
+installer\output\DS-IHF-Setup.exe
+```
+
+## Intune (Win32-App)
+
+Installationsbefehl:   `DS-IHF-Setup.exe /S`
+Deinstallationsbefehl: `%localappdata%\DS-IHF\Uninstall.exe /S`
+Erkennungsregel:       Datei `%LOCALAPPDATA%\DS-IHF\DS.IHF.exe`
+Zuweisung:             Per Benutzer (nicht Gerät)
+Abhängigkeit:          .NET 8 Desktop Runtime
+
 
 ## Voraussetzungen (einmalig)
 
