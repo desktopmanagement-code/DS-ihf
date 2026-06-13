@@ -1,6 +1,6 @@
 #define AppName "DS-IHF Serienbrief-Upload"
 #define AppVersion "1.0.0"
-#define AppPublisher "Aequitas-Software für Hausärztinnen- und Hausärzteverband (Tobias Paul)"
+#define AppPublisher "Hausärztinnen- und Hausärzteverband"
 #define AppExeName "DS.IHF.exe"
 #define BuildDir "..\src\DS.IHF\bin\Release\net8.0-windows"
 
