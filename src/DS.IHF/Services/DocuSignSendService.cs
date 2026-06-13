@@ -30,7 +30,7 @@ public class DocuSignSendService
 
         var request = new HttpRequestMessage(
             HttpMethod.Post,
-            $"{_settings.DOCUSIGN_BASE_URI}/v2.1/accounts/{DocuSignUserService.AccountId}/envelopes");
+            $"{_settings.DOCUSIGN_BASE_URI}/v2.1/accounts/{DsEnvironment.Active.AccountId}/envelopes");
 
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
         request.Content = new ByteArrayContent(body);

@@ -4,6 +4,10 @@ using DS.IHF.Services;
 
 [assembly: System.Runtime.Versioning.SupportedOSPlatform("windows")]
 
+// /Demo Schalter prüfen
+if (args.Any(a => a.Equals("/Demo", StringComparison.OrdinalIgnoreCase)))
+    DsEnvironment.SetDemo();
+
 var http     = new HttpClient();
 var settings = SettingsService.Load();
 

@@ -33,7 +33,8 @@ public class MainForm : Form
 
     private void InitializeComponent()
     {
-        Text            = "DS-IHF — DocuSign Serienbrief-Upload";
+        var env = DsEnvironment.Active.Name == "Demo" ? " [DEMO]" : "";
+        Text    = $"DS-IHF — DocuSign Serienbrief-Upload{env}";
         Size            = new Size(700, 520);
         MinimumSize     = new Size(600, 480);
         StartPosition   = FormStartPosition.CenterScreen;
