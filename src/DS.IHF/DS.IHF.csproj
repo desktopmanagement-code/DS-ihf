@@ -10,6 +10,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon />
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <Authors>Hausärztinnen- und Hausärzteverband</Authors>
+    <Company>Hausärztinnen- und Hausärzteverband</Company>
+    <Product>DS-IHF Serienbrief-Upload</Product>
+    <Description>DocuSign Serienbriefe automatisch hochladen</Description>
+    <Copyright>© 2026 Hausärztinnen- und Hausärzteverband</Copyright>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
