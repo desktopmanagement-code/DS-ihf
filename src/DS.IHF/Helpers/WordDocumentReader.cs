@@ -7,9 +7,9 @@ namespace DS.IHF.Helpers;
 
 public static class WordDocumentReader
 {
-    private static readonly Regex EmailPattern   = new(@"(?<=DSEMAIL:\s*)[^\s]+",  RegexOptions.Compiled);
-    private static readonly Regex NamePattern    = new(@"(?<=DSASP:\s*)\S.*",   RegexOptions.Compiled);
-    private static readonly Regex SubjectPattern = new(@"(?<=DSVA:\s*)\S.*",    RegexOptions.Compiled);
+    private static readonly Regex EmailPattern   = new(@"(?<=DSEMAIL:\s*)[^\s]+",           RegexOptions.Compiled);
+    private static readonly Regex NamePattern    = new(@"(?<=DSASP:\s*)(.+?)(?=\s*MERGEFIELD|$)", RegexOptions.Compiled);
+    private static readonly Regex SubjectPattern = new(@"(?<=DSVA:\s*)(.+?)(?=\s*MERGEFIELD|$)",  RegexOptions.Compiled);
 
     public static DocumentMetadata ReadMetadata(string filePath)
     {
@@ -45,7 +45,8 @@ public static class WordDocumentReader
     {
         var m = regex.Match(line);
         if (!m.Success) return "";
-        var value = m.Value.Trim();
+        // Gruppe 1 bevorzugen (für Muster mit Capture-Group), sonst ganzer Match
+        var value = (m.Groups.Count > 1 && m.Groups[1].Success ? m.Groups[1].Value : m.Value).Trim();
         return removeSpaces ? value.Replace(" ", "") : value;
     }
 }
