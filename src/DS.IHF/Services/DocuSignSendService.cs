@@ -10,8 +10,6 @@ public class DocuSignSendService
     private readonly AppSettings        _settings;
     private readonly DocuSignAuthService _auth;
     private readonly HttpClient          _http;
-    private readonly string              _logFile = "DS-IHF.log";
-
     public DocuSignSendService(AppSettings settings, DocuSignAuthService auth, HttpClient http)
     {
         _settings = settings;
@@ -138,10 +136,5 @@ public class DocuSignSendService
     private static string Truncate(string value, int maxLength) =>
         value.Length <= maxLength ? value : value[..maxLength];
 
-    private void Log(string message)
-    {
-        var line = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} | {message}";
-        Console.WriteLine(line);
-        File.AppendAllText(_logFile, line + Environment.NewLine);
-    }
+    private static void Log(string message) => LogService.Write(message);
 }
