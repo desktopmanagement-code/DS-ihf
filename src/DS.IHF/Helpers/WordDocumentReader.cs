@@ -7,7 +7,7 @@ namespace DS.IHF.Helpers;
 
 public static class WordDocumentReader
 {
-    private static readonly Regex EmailPattern   = new(@"(?<=DSEMAIL:\s*)\S.*", RegexOptions.Compiled);
+    private static readonly Regex EmailPattern   = new(@"(?<=DSEMAIL:\s*)\S.*",    RegexOptions.Compiled);
     private static readonly Regex NamePattern    = new(@"(?<=DSASP:\s*)\S.*",   RegexOptions.Compiled);
     private static readonly Regex SubjectPattern = new(@"(?<=DSVA:\s*)\S.*",    RegexOptions.Compiled);
 
@@ -26,7 +26,7 @@ public static class WordDocumentReader
             if (string.IsNullOrEmpty(line)) continue;
 
             if (string.IsNullOrEmpty(meta.SignerEmail))
-                meta.SignerEmail = MatchLine(EmailPattern, line);
+                meta.SignerEmail = MatchLine(EmailPattern, line, removeSpaces: true);
             if (string.IsNullOrEmpty(meta.SignerName))
                 meta.SignerName = MatchLine(NamePattern, line);
             if (string.IsNullOrEmpty(meta.Subject))
@@ -41,9 +41,11 @@ public static class WordDocumentReader
         return meta;
     }
 
-    private static string MatchLine(Regex regex, string line)
+    private static string MatchLine(Regex regex, string line, bool removeSpaces = false)
     {
         var m = regex.Match(line);
-        return m.Success ? m.Value.Trim() : "";
+        if (!m.Success) return "";
+        var value = m.Value.Trim();
+        return removeSpaces ? value.Replace(" ", "") : value;
     }
 }
