@@ -7,7 +7,7 @@ namespace DS.IHF.Helpers;
 
 public static class WordDocumentReader
 {
-    private static readonly Regex EmailPattern   = new(@"(?<=DSEMAIL:\s*)\S.*",    RegexOptions.Compiled);
+    private static readonly Regex EmailPattern   = new(@"(?<=DSEMAIL:\s*)[^\s]+",  RegexOptions.Compiled);
     private static readonly Regex NamePattern    = new(@"(?<=DSASP:\s*)\S.*",   RegexOptions.Compiled);
     private static readonly Regex SubjectPattern = new(@"(?<=DSVA:\s*)\S.*",    RegexOptions.Compiled);
 
