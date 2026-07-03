@@ -343,5 +343,6 @@ public class MainForm : Form
         _log.SelectionColor  = color;
         _log.AppendText(text + "\n");
         _log.ScrollToCaret();
+        LogService.Write(text);
     }
 }
