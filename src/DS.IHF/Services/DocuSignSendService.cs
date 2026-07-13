@@ -61,9 +61,15 @@ public class DocuSignSendService
 
     private string BuildEnvelopeJson(DocumentMetadata meta)
     {
+        var senderName  = string.IsNullOrWhiteSpace(_settings.SENDER_NAME) ? "" : $"\n{_settings.SENDER_NAME}";
+        var emailBlurb  =
+            "Helfen Sie uns damit, Papier und Ressourcen zu sparen.\n\n" +
+            $"Vielen Dank.{senderName}";
+
         var envelope = new
         {
             emailSubject = Truncate($"Bitte unterzeichnen Sie dieses Dokument ({meta.Subject})", 100),
+            emailBlurb,
             documents = new[]
             {
                 new { name = meta.Subject, fileExtension = "docx", documentId = "1" }

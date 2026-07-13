@@ -158,6 +158,18 @@ public class DocuSignAuthService
         await File.WriteAllTextAsync(consentPath, DateTime.UtcNow.ToString("o"));
     }
 
+    public async Task<string> GetSenderNameAsync()
+    {
+        var token = await GetAccessTokenAsync();
+        var request = new HttpRequestMessage(HttpMethod.Get, $"{DsEnvironment.Active.AuthServer}/oauth/userinfo");
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        var response = await _http.SendAsync(request);
+        var json     = await response.Content.ReadAsStringAsync();
+        return JsonDocument.Parse(json).RootElement.TryGetProperty("name", out var name)
+            ? name.GetString() ?? ""
+            : "";
+    }
+
     private static string B64Url(string text)  => B64Url(Encoding.UTF8.GetBytes(text));
     private static string B64Url(byte[] bytes)  =>
         Convert.ToBase64String(bytes).TrimEnd('=').Replace('+', '-').Replace('/', '_');

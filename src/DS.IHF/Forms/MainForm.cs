@@ -176,6 +176,18 @@ public class MainForm : Form
             }
 
             await _auth.GetAccessTokenAsync();
+
+            if (string.IsNullOrWhiteSpace(_settings.SENDER_NAME))
+            {
+                var name = await _auth.GetSenderNameAsync();
+                if (!string.IsNullOrWhiteSpace(name))
+                {
+                    _settings.SENDER_NAME = name;
+                    SettingsService.Save(_settings);
+                    AppendLog($"Absendername gespeichert: {name}", Color.Cyan);
+                }
+            }
+
             SetStatus("Authentifiziert. Bitte Ordner wählen.", Color.Green);
             _btnBrowse.Enabled = true;
             AppendLog("Token erfolgreich erhalten.", Color.LightGreen);

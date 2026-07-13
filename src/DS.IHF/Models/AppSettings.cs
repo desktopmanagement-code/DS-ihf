@@ -6,6 +6,7 @@ namespace DS.IHF.Models;
 public class AppSettings
 {
     public string IMPERSONATION_USER_GUID { get; set; } = "";
+    public string SENDER_NAME             { get; set; } = "";
     public string CC_EMAIL                { get; set; } = "";
     public string CC_NAME                 { get; set; } = "";
 
