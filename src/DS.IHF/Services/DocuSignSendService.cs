@@ -64,7 +64,7 @@ public class DocuSignSendService
         var senderName = string.IsNullOrWhiteSpace(_settings.SENDER_NAME) ? "" : $"\n{_settings.SENDER_NAME}";
         var emailBlurb =
             $"Guten Tag {meta.SignerName}!\n\n" +
-            "vielen Dank für Ihre Unterstützung. Bitte signieren Sie das Dokument per DocuSign. " +
+            "Vielen Dank für Ihre Unterstützung. Bitte signieren Sie das Dokument per DocuSign. " +
             "Hierzu ist keine DocuSign-Lizenz oder ein Kundenkonto erforderlich.\n" +
             "Helfen Sie uns damit, Papier und Ressourcen zu sparen.\n\n" +
             $"Vielen Dank.{senderName}";
