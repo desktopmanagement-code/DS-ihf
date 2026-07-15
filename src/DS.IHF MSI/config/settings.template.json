@@ -1,0 +1,7 @@
+{
+  "IMPERSONATION_USER_GUID": "",
+  "CC_EMAIL": "{CC_EMAIL}",
+  "CC_NAME": "{CC_NAME}",
+  "DOCUSIGN_BASE_URI": "https://eu.docusign.net/restapi",
+  "DOCUSIGN_AUTH_SERVER": "https://account.docusign.com"
+}

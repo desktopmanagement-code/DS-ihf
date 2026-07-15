@@ -10,6 +10,8 @@ public class DocuSignSendService
     private readonly AppSettings        _settings;
     private readonly DocuSignAuthService _auth;
     private readonly HttpClient          _http;
+    private readonly string              _logFile = "DS-IHF.log";
+
     public DocuSignSendService(AppSettings settings, DocuSignAuthService auth, HttpClient http)
     {
         _settings = settings;
@@ -61,18 +63,9 @@ public class DocuSignSendService
 
     private string BuildEnvelopeJson(DocumentMetadata meta)
     {
-        var senderName = string.IsNullOrWhiteSpace(_settings.SENDER_NAME) ? "" : $"\n{_settings.SENDER_NAME}";
-        var emailBlurb =
-            $"Guten Tag {meta.SignerName}!\n\n" +
-            "Vielen Dank für Ihre Unterstützung. Bitte signieren Sie das Dokument per DocuSign. " +
-            "Hierzu ist keine DocuSign-Lizenz oder ein Kundenkonto erforderlich.\n" +
-            "Helfen Sie uns damit, Papier und Ressourcen zu sparen.\n\n" +
-            $"Mit freundlichen Grüßen\n\n{senderName}";
-
         var envelope = new
         {
             emailSubject = Truncate($"Bitte unterzeichnen Sie dieses Dokument ({meta.Subject})", 100),
-            emailBlurb,
             documents = new[]
             {
                 new { name = meta.Subject, fileExtension = "docx", documentId = "1" }
@@ -145,5 +138,10 @@ public class DocuSignSendService
     private static string Truncate(string value, int maxLength) =>
         value.Length <= maxLength ? value : value[..maxLength];
 
-    private static void Log(string message) => LogService.Write(message);
+    private void Log(string message)
+    {
+        var line = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} | {message}";
+        Console.WriteLine(line);
+        File.AppendAllText(_logFile, line + Environment.NewLine);
+    }
 }
