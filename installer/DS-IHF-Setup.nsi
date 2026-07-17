@@ -1,19 +1,19 @@
-; DS-IHF Serienbrief-Upload Setup
+; DS-Versand Setup
 ; NSIS Installer Script
 
 Unicode True
 
-!define APP_NAME "DS-IHF Serienbrief-Upload"
-!define APP_VERSION "1.0.0"
+!define APP_NAME "DS-Versand"
+!define APP_VERSION "2026.7"
 !define APP_PUBLISHER "Aequitas-Software für Hausärztinnen- und Hausärzteverband (Tobias Paul)"
 !define APP_EXE "DS.IHF.exe"
 !define BUILD_DIR "..\src\DS.IHF\bin\Release\net8.0-windows\win-x64\publish"
-!define INSTALL_DIR "$PROGRAMFILES64\DS-IHF"
-!define UNINSTALL_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\DS-IHF"
+!define INSTALL_DIR "$PROGRAMFILES64\DS-Versand"
+!define UNINSTALL_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\DS-Versand"
 !define APP_GUID "{B7C3D4E5-F6A7-8901-BCDE-F12345678901}"
 
 Name "${APP_NAME}"
-OutFile "output\DS-IHF-Setup.exe"
+OutFile "output\DS-Versand-Setup.exe"
 InstallDir "${INSTALL_DIR}"
 RequestExecutionLevel admin
 SetCompressor /SOLID lzma
@@ -42,10 +42,10 @@ Section "Hauptprogramm" SecMain
     File "..\src\DS.IHF\DSIHF.ico"
 
     ; Startmenü-Einträge
-    CreateDirectory "$SMPROGRAMS\DS-IHF"
-    CreateShortcut "$SMPROGRAMS\DS-IHF\DS-IHF Serienbrief-Upload.lnk" \
+    CreateDirectory "$SMPROGRAMS\DS-Versand"
+    CreateShortcut "$SMPROGRAMS\DS-Versand\DS-Versand.lnk" \
         "$INSTDIR\${APP_EXE}" "" "$INSTDIR\DSIHF.ico" 0
-    CreateShortcut "$SMPROGRAMS\DS-IHF\Deinstallieren.lnk" \
+    CreateShortcut "$SMPROGRAMS\DS-Versand\Deinstallieren.lnk" \
         "$INSTDIR\Uninstall.exe"
 
     ; Deinstallationsprogramm erstellen
@@ -72,9 +72,9 @@ Section "Uninstall"
     RMDir  "$INSTDIR"
 
     ; Startmenü entfernen
-    Delete "$SMPROGRAMS\DS-IHF\DS-IHF Serienbrief-Upload.lnk"
-    Delete "$SMPROGRAMS\DS-IHF\Deinstallieren.lnk"
-    RMDir  "$SMPROGRAMS\DS-IHF"
+    Delete "$SMPROGRAMS\DS-Versand\DS-Versand.lnk"
+    Delete "$SMPROGRAMS\DS-Versand\Deinstallieren.lnk"
+    RMDir  "$SMPROGRAMS\DS-Versand"
 
     ; Registry-Eintrag entfernen
     DeleteRegKey HKLM "${UNINSTALL_KEY}"

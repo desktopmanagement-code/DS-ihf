@@ -8,10 +8,10 @@ using DS.IHF.Services;
 if (args.Any(a => a is "/?" or "-?" or "--help" or "/help"))
 {
     var logDir = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DS-IHF", "logs");
+        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DS-Versand", "logs");
 
     MessageBox.Show(
-        "DS-IHF — DocuSign Serienbrief-Upload\n\n" +
+        "DS-Versand — DocuSign Serienbrief-Upload\n\n" +
         "Aufrufoptionen:\n\n" +
         "  DS.IHF.exe\n" +
         "    Normaler Start (Produktionsumgebung)\n\n" +
@@ -22,7 +22,7 @@ if (args.Any(a => a is "/?" or "-?" or "--help" or "/help"))
         "    Diese Hilfe anzeigen\n\n" +
         "Protokolldateien:\n" +
         $"  {logDir}",
-        "DS-IHF Hilfe",
+        "DS-Versand Hilfe",
         MessageBoxButtons.OK,
         MessageBoxIcon.Information);
     return;

@@ -5,7 +5,7 @@ namespace DS.IHF.Services;
 public static class LogService
 {
     private static readonly string LogDirectory =
-        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DS-IHF", "logs");
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DS-Versand", "logs");
 
     private static string LogFilePath =>
         Path.Combine(LogDirectory, $"ds-ihf-{DateTime.Now:yyyy-MM-dd}.log");

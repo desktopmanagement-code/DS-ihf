@@ -17,49 +17,13 @@ NSIS herunterladen und installieren: https://nsis.sourceforge.io
 
 Die fertige Setup-EXE liegt danach unter:
 ```
-installer\output\DS-IHF-Setup.exe
+installer\output\DS-Versand-Setup.exe
 ```
 
 ## Intune (Win32-App)
 
-Installationsbefehl:   `DS-IHF-Setup.exe /S`
-Deinstallationsbefehl: `%localappdata%\DS-IHF\Uninstall.exe /S`
-Erkennungsregel:       Datei `%LOCALAPPDATA%\DS-IHF\DS.IHF.exe`
-Zuweisung:             Per Benutzer (nicht Gerät)
-Abhängigkeit:          .NET 8 Desktop Runtime
-
-
-## Voraussetzungen (einmalig)
-
-Inno Setup herunterladen und installieren:
-https://jrsoftware.org/isdl.php
-
-## Setup-EXE bauen
-
-**Schritt 1:** App im Release-Modus bauen
-- Visual Studio → Erstellen → Batchbuild
-- Häkchen bei DS.IHF | Release | Any CPU
-- Klick auf Erstellen
-
-**Schritt 2:** Inno Setup öffnen
-- `installer\DS-IHF-Setup.iss` mit Inno Setup öffnen
-- Klick auf **Compile** (oder F9)
-
-Die fertige Setup-EXE liegt danach unter:
-```
-installer\output\DS-IHF-Setup.exe
-```
-
-## Intune (Win32-App)
-
-```powershell
-# IntuneWin-Paket erstellen
-IntuneWinAppUtil.exe -c installer\output -s DS-IHF-Setup.exe -o installer\output
-```
-
-Intune-Konfiguration:
-- Installationsbefehl:   `DS-IHF-Setup.exe /VERYSILENT /SUPPRESSMSGBOXES`
-- Deinstallationsbefehl: `%localappdata%\DS-IHF\unins000.exe /VERYSILENT`
-- Erkennungsregel:       Datei `%LOCALAPPDATA%\DS-IHF\DS.IHF.exe`
-- Zuweisung:             Per Benutzer (nicht Gerät)
-- Abhängigkeit:          .NET 8 Desktop Runtime
+Installationsbefehl:   `DS-Versand-Setup.exe /S`
+Deinstallationsbefehl: `%programfiles%\DS-Versand\Uninstall.exe /S`
+Erkennungsregel:       Datei `%programfiles%\DS-Versand\DS.IHF.exe`
+Zuweisung:             Per Gerät (admin-Installation)
+Abhängigkeit:          keine (.NET ist selbst enthalten)

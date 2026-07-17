@@ -6,7 +6,7 @@ namespace DS.IHF.Services;
 public static class SettingsService
 {
     public static string ConfigDirectory =>
-        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DS-IHF", "config");
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DS-Versand", "config");
 
     public static string SettingsFilePath => Path.Combine(ConfigDirectory, "settings.json");
     public static string ConsentDonePath  => Path.Combine(ConfigDirectory, "consent.done");
