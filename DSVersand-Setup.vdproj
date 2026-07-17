@@ -170,7 +170,7 @@
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.1.0717"
-        "Manufacturer" = "8:"
+        "Manufacturer" = "8:Aequitas-Software"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
         "Title" = "8:DSVersand"
