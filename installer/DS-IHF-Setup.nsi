@@ -4,7 +4,7 @@
 Unicode True
 
 !define APP_NAME "DS-Versand"
-!define APP_VERSION "2026.7"
+!define APP_VERSION "1.1.20260717"
 !define APP_PUBLISHER "Aequitas-Software für Hausärztinnen- und Hausärzteverband (Tobias Paul)"
 !define APP_EXE "DS.IHF.exe"
 !define BUILD_DIR "..\src\DS.IHF\bin\Release\net8.0-windows\win-x64\publish"
