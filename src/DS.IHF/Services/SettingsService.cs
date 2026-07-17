@@ -19,8 +19,18 @@ public static class SettingsService
             WriteTemplate();
 
         var json = File.ReadAllText(SettingsFilePath);
-        return JsonSerializer.Deserialize<AppSettings>(json)
+        var settings = JsonSerializer.Deserialize<AppSettings>(json)
             ?? throw new InvalidOperationException("settings.json konnte nicht gelesen werden.");
+
+        // Fehlende Felder ergänzen und speichern (z.B. nach Update)
+        bool updated = false;
+        if (!json.Contains("\"IMPERSONATION_USER_GUID\"")) { settings.IMPERSONATION_USER_GUID = ""; updated = true; }
+        if (!json.Contains("\"SENDER_NAME\""))             { settings.SENDER_NAME = "";             updated = true; }
+        if (!json.Contains("\"CC_EMAIL\""))                { settings.CC_EMAIL = "";                updated = true; }
+        if (!json.Contains("\"CC_NAME\""))                 { settings.CC_NAME = "";                 updated = true; }
+        if (updated) Save(settings);
+
+        return settings;
     }
 
     public static void Save(AppSettings settings)
