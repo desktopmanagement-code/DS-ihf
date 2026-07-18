@@ -20,7 +20,7 @@
     <Product>DS-Versand</Product>
     <Description>DocuSign Serienbriefe automatisch hochladen</Description>
     <Copyright>© 2026 Hausärztinnen- und Hausärzteverband</Copyright>
-    <Version>1.1.20260717</Version>
+    <Version>1.1.260717</Version>
   </PropertyGroup>
 
   <ItemGroup>
