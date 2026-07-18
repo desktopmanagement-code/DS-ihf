@@ -98,14 +98,6 @@
         "FileType"
         {
         }
-        "Icon"
-        {
-            "{DFDB4B36-A72D-4C22-A4DE-A93B7B2E8B1C}:_C1D2E3F4A5B6C7D8E9F0A1B2C3D4E5F6"
-            {
-            "Name" = "8:DSIHF.ico"
-            "SourcePath" = "8:..\\src\\DS.IHF\\DSIHF.ico"
-            }
-        }
         "Folder"
         {
             "{1525181F-901A-416C-8A58-119130FE478E}:_56FF8CF7D4F04B7E9AE8A22CE98AAF8F"
@@ -301,7 +293,7 @@
             "Target" = "8:_5167A6F7518F47F480E0E75ADAC2F461"
             "Folder" = "8:_BF10211E3CAD4BB78AA88880C022FC78"
             "WorkingFolder" = "8:_5BD90303BBFA4996B319C9839D5BA4CD"
-            "Icon" = "8:_C1D2E3F4A5B6C7D8E9F0A1B2C3D4E5F6"
+            "Icon" = "8:"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_0D30BE3156F2457B8B9EE3D492F3B773"
@@ -315,7 +307,7 @@
             "Target" = "8:_5167A6F7518F47F480E0E75ADAC2F461"
             "Folder" = "8:_EA2CBDC75C59421A8559B91FD8C4DDB3"
             "WorkingFolder" = "8:_5BD90303BBFA4996B319C9839D5BA4CD"
-            "Icon" = "8:_C1D2E3F4A5B6C7D8E9F0A1B2C3D4E5F6"
+            "Icon" = "8:"
             "Feature" = "8:"
             }
         }
