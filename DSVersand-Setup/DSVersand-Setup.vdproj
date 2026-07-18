@@ -94,9 +94,37 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A1C2E3F4B5D6C7E8F9A0B1C2D3E4F5A6"
+            {
+            "SourcePath" = "8:..\\src\\DS.IHF\\DSIHF.ico"
+            "TargetName" = "8:DSIHF.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_5BD90303BBFA4996B319C9839D5BA4CD"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
+        }
+        "Icon"
+        {
+            "{966B7059-B33E-4823-90C9-5C7CB1626F71}:_ICON001"
+            {
+            "Name" = "8:DSIHF.ico"
+            "SourcePath" = "8:..\\src\\DS.IHF\\DSIHF.ico"
+            }
         }
         "Folder"
         {
@@ -293,7 +321,7 @@
             "Target" = "8:_5167A6F7518F47F480E0E75ADAC2F461"
             "Folder" = "8:_BF10211E3CAD4BB78AA88880C022FC78"
             "WorkingFolder" = "8:_5BD90303BBFA4996B319C9839D5BA4CD"
-            "Icon" = "8:"
+            "Icon" = "8:_ICON001"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_0D30BE3156F2457B8B9EE3D492F3B773"
@@ -307,7 +335,7 @@
             "Target" = "8:_5167A6F7518F47F480E0E75ADAC2F461"
             "Folder" = "8:_EA2CBDC75C59421A8559B91FD8C4DDB3"
             "WorkingFolder" = "8:_5BD90303BBFA4996B319C9839D5BA4CD"
-            "Icon" = "8:"
+            "Icon" = "8:_ICON001"
             "Feature" = "8:"
             }
         }
