@@ -296,6 +296,20 @@
             "Icon" = "8:"
             "Feature" = "8:"
             }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_0D30BE3156F2457B8B9EE3D492F3B773"
+            {
+            "Name" = "8:DS-Versand"
+            "Arguments" = "8:"
+            "Description" = "8:DocuSign Serienbrief-Versand"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_5167A6F7518F47F480E0E75ADAC2F461"
+            "Folder" = "8:_EA2CBDC75C59421A8559B91FD8C4DDB3"
+            "WorkingFolder" = "8:_5BD90303BBFA4996B319C9839D5BA4CD"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {
